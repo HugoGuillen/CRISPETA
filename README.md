@@ -201,6 +201,15 @@ conda create -n crispeta --yes python=2 numpy biopython plotly chart-studio mysq
 2. Location of crispeta executable is in `/data/projects/p283_rna_and_disease/projects/CRISPETa_data/CRISPETA`. You should enter the directory before running the commands.
 
 3. Testing environment
+- Login into the cluster.
+
+- Open an interactive session:
+
+```bash
+srun --pty --time=360 --cpus-per-task=1 --mem=5G /bin/bash
+```
+
+- Run with a minimal file:
 
 ```bash
 cd /data/projects/p283_rna_and_disease/projects/CRISPETa_data/CRISPETA
