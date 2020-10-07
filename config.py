@@ -3,19 +3,19 @@ config = {
 			'mysql': {
 						'user': 'crispeta',		#crispeta
 						'passwd': 'crispeta',	#crispeta
-						'host': 'localhost'
+						'host': 'binfservapp13'
 			},
 
 			'mysql_db': {
 						'user': 'crispeta',		#crispeta
 						'passwd': 'crispeta',	#crispeta
-						'host': 'localhost',	
+						'host': 'binfservapp13',	
 						'db': 'crispeta',		#crispeta
 						'local_infile':1
 
 			},
 
-			'table': 'crispeta',				#crispeta
+			'table': 'hg19',				#crispeta
 
 			'colnames': {
 						'col1' : 'grna',

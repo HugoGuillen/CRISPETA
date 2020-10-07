@@ -1,4 +1,4 @@
-# **About CRISPETa**
+# About CRISPETa
 		                            
 CRISPETa is a flexible tool to design optimal pairs of sgRNAs for deletion of desired genomic regions. Using as input a BED format file CRISPETa is able to find, analyze, and score all possible sgRNAs. As a result the program returns:
 
@@ -12,23 +12,42 @@ The code can be found on github: https://github.com/guigolab/CRISPETA or on our 
 http://crispeta.crg.eu
 
 
-## **Requirements**
+## Requirements
 
 * python 2.7
     * Numpy
-    * BioPython
-    * python-mysqldb
-    * Plotly (optional)
+    * biopython
+    * mysql-python
+    * plotly and chart-studio (optional)
     * pdfkit (optional)
 * BEDtools
 * MySQL (tested on v5.1 and v5.5)
 	
+## Installing dependencies using Anaconda
 
-## **Before Starting**
+```bash
+. ~/anaconda3/etc/profile.d/conda.sh
+conda activate
+	
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
 
-**WARNING: CRISPETa uses MySQL. Options to connect to MySQL database can be found in config.py file. Change parameters if necessary in order to connect to your MySQL season. If you change options names while creating the database remember to change theese values in config.py file**
+conda create -n crispeta --yes python=2 numpy biopython plotly chart-studio mysql-python pdfkit bedtools
+```
 
-Before running CRISPETa the user must create a database in MySQL to store off-target information for sgRNAs. This step can take a while depending on the size of the database and computer resources (more than 1 hour for human). Files with precomputed off-target information for some organisms can be directly download from our web server (http://crispeta.crg.eu/download).
+To activate the environment, run
+
+```bash
+. ~/anaconda3/etc/profile.d/conda.sh
+conda activate crispeta
+```
+
+## Before Starting
+
+- Defaults to connect to the database can be found in `config.py` file. Change parameters as necessary.
+- Before running CRISPETa the user must create a database in MySQL/MariaDB to store off-target information for sgRNAs. This step can take a while depending on the size of the database and computer resources (more than 1 hour for human). Files with precomputed off-target information for some organisms can be directly download from our web server (http://crispeta.crg.eu/download).
+<font color="red">NOTE:</font>: all files must be uncompressed before calling the creation scripts. 
 
 #### **Create database**
 
@@ -73,6 +92,8 @@ The comma separated file can be loaded directly to MySQL from the terminal using
 	mysql>	LOAD DATA LOCAL INFILE '[coma_separated_file.txt]' INTO TABLE  [genome_name]
 	-> FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';
 	
+
+In `config.py`, change the parameter [table] with you [genome_name].
 
 ## **CRISPETA**
 **Running example**
@@ -157,3 +178,37 @@ The fields in the file correspond to:
     func.py -> necessary functions for CRISPETA.py and crispeta_mysql.py to work.
     README.md -> Markdown file with information about CRISPETA.
 
+---
+---
+---
+# Hugo's notes on installing CRISPETa on IBU
+
+1. Setup conda environment.
+
+You need to install Anaconda Python distribution, and change conda path accordingly to you case (shown is default).
+
+```bash
+. ~/anaconda3/etc/profile.d/conda.sh
+conda activate
+	
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+conda create -n crispeta --yes python=2 numpy biopython plotly chart-studio mysql-python pdfkit bedtools
+```
+
+2. Location of crispeta executable is in `/data/projects/p283_rna_and_disease/projects/CRISPETa_data/CRISPETA`. You should enter the directory before running the commands.
+
+3. Testing environment
+
+```bash
+cd /data/projects/p283_rna_and_disease/projects/CRISPETa_data/CRISPETA
+. ~/anaconda3/etc/profile.d/conda.sh
+conda activate crispeta
+python CRISPETA.py --help
+
+python CRISPETA.py -i /data/projects/p283_rna_and_disease/projects/CRISPETa_data/test/example.bed -g /data/projects/p283_rna_and_disease/projects/CRISPETa_data/hg19_masked.fa -o /data/projects/p283_rna_and_disease/projects/CRISPETa_data/test/results
+```
+
+Results should be at `/data/projects/p283_rna_and_disease/projects/CRISPETa_data/test/results*`.
